@@ -7,15 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="807.105" Width="901.341">
     <Grid>
-        <Button Content="Generate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="726,728,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,41,0,0"/>
+        <Button Content="Generate" Click="generateConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="726,728,0,0"/>
+        <TextBox Name="fnc" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,41,0,0"/>
         <Label Content="Faction class name" HorizontalAlignment="Left" Margin="43,15,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,95,0,0"/>
+        <TextBox Name="fn" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,95,0,0"/>
         <Label Content="Faction name" HorizontalAlignment="Left" Margin="43,69,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,149,0,0"/>
+        <TextBox Name="auth" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,149,0,0"/>
         <Label Content="Author" HorizontalAlignment="Left" Margin="43,123,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Side" HorizontalAlignment="Left" Margin="199,15,0,0" VerticalAlignment="Top" Width="120"/>
         <ListBox Name="sideListBox" HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="120" Margin="199,41,0,0" SelectionChanged="ListBox_SelectionChanged"/>
+        <TextBox Name="debug" HorizontalAlignment="Left" Height="509" Margin="364,67,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="472" TextChanged="TextBox_TextChanged"/>
 
     </Grid>
 </Window>
