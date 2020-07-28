@@ -37,11 +37,11 @@ namespace Arma3FactionGenerator
             sideListBox.SelectedIndex = 0;
         }
 
-        private string generateFaction(string FunNameClass, string FunName, string Author, int side)
+        private string generateFaction(string FacNameClass, string FacName, string Author, int side)
         {
             string config = $@"class CfgPatches
 {{
-    class {FunNameClass}
+    class {FacNameClass}
     {{
         units[]= {{}};
         weapons[]={{}};
@@ -52,9 +52,9 @@ namespace Arma3FactionGenerator
 }};
 class cfgFactionClasses
 {{
-    class {FunNameClass}_faction
+    class {FacNameClass}_faction
     {{
-        displayName = ""{FunName}"";
+        displayName = ""{FacName}"";
         priority = 3;
         side = {side};
         icon = """";
@@ -62,7 +62,7 @@ class cfgFactionClasses
 }};
 class cfgVehicleClasses
 {{
-    class {FunNameClass}_Men     
+    class {FacNameClass}_Men     
     {{
         displayName=""Men"";
     }};
@@ -70,45 +70,71 @@ class cfgVehicleClasses
             return config;
 
         }
-        private string generateSoldiers()
+        private string generateSoldiers(string uniform, string SVest, string SBackpack, string Weapon, string WeaponAmmo, int WeaponAmmoNum, string MGWeapon, string MGWeaponAmmo, int MGWeaponAmmoNum, string NightVis, string SMask, string SHelmet,string FacNameClass)
         {
+            string mags = "";
+            for (int i = 0; i < WeaponAmmoNum-1; i++)
+            {
+                mags = mags + '"'+WeaponAmmo+'"'+",";
+            }
+            mags = mags + '"' + WeaponAmmo + '"';
+            string MGmags = "";
+            for (int i = 0; i < WeaponAmmoNum; i++)
+            {
+                MGmags = MGmags + '"' + MGWeaponAmmo + '"' + ",";
+            }
+            MGmags = MGmags + '"' + MGWeaponAmmo + '"';
+
             string config = $@"
             class CfgVehicles
         {{
             class B_Soldier_base_F;
-            class Army_Squadleader : B_Soldier_base_F
+            class {FacNameClass}_f_Squadleader : B_Soldier_base_F
             {{
-                _generalMacro = ""Army_Squadleader""; 
+                _generalMacro = ""{FacNameClass}_f_Squadleader""; 
 	scope = 2;
 	displayName = ""Squad Leader"";
-	faction = a_units; 
-	vehicleClass = ""army_units"";
+	faction = {FacNameClass}_faction; 
+	vehicleClass = ""{FacNameClass}_Men"";
 	icon = ""iconManLeader"";
 	nakedUniform = ""U_BasicBody"";  
-	uniformClass = ""U_B_CombatUniform_mcam"";
-	backpack = ""B_AssaultPack_khk"";
-	linkedItems[] = {{""V_PlateCarrier3_rgr"", ""H_HelmetB_light"", ""NVGoggles"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
-	respawnLinkedItems[] = {{""V_PlateCarrier3_rgr"", ""H_HelmetB_light"", ""NVGoggles"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
-	weapons[] = {{""arifle_MX_F"",""Binocular""}};
-	respawnweapons[] = {{""arifle_MX_F"",""Binocular""}};
-	magazines[] = {{""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""HandGrenade"",""HandGrenade"",}};
-	Respawnmagazines[] = {{""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""HandGrenade"",""HandGrenade"",}};
+	uniformClass = ""{uniform}"";
+	backpack = ""{backpack}"";
+	linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	weapons[] = {{""{Weapon}"",""Binocular""}};
+	respawnweapons[] = {{""{Weapon}"",""Binocular""}};
+	magazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
+	Respawnmagazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
 	}};
         }};";
             return config;
-    }
+        }
 
         private void generateConfig(object sender, RoutedEventArgs e)
         {
-            string FunNameClass = fnc.Text;
-            string FunName = fn.Text;
+            string uniform = uni.Text;
+            string SVest = vest.Text;
+            string SBackpack = backpack.Text;
+            string Weapon = weap.Text;
+            string MGWeapon = mg_weap.Text;
+            string WeaponAmmo = weap_mag.Text;
+            string MGWeaponAmmo = mg_weap_mag.Text;
+            int WeaponAmmoNum = (int)weap_mag_num.Value;
+            int MGWeaponAmmoNum = (int)mg_weap_mag_num.Value;
+            string NightVis = nvg.Text;
+            string SMask = mask.Text;
+            string SHelmet = helmet.Text;
+            string FacNameClass = fnc.Text;
+            string FacName = fn.Text;
             string Author = auth.Text;
             Author = Author + " via A3FG";
             FactionGenVars.author = Author;
-            FactionGenVars.factionClass = FunNameClass;
+            FactionGenVars.factionClass = FacNameClass;
             int side = sideListBox.SelectedIndex;
             string finall = "";
-            finall = generateFaction(FunNameClass, FunName, Author, side);
+            finall = generateFaction(FacNameClass, FacName, Author, side);
+            finall = finall + generateSoldiers(uniform, SVest, SBackpack, Weapon, WeaponAmmo, WeaponAmmoNum, MGWeapon, MGWeaponAmmo, MGWeaponAmmoNum, NightVis, SMask, SHelmet, FacNameClass);
             debug.Text = finall;
         }
 
