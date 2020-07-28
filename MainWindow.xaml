@@ -3,20 +3,69 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Arma3FactionGenerator"
         mc:Ignorable="d"
         Title="MainWindow" Height="807.105" Width="901.341">
     <Grid>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="220" Margin="27,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="308" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.184"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.497"/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
         <Button Content="Generate" Click="generateConfig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="726,728,0,0"/>
-        <TextBox Name="fnc" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,41,0,0"/>
-        <Label Content="Faction class name" HorizontalAlignment="Left" Margin="43,15,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="fn" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,95,0,0"/>
-        <Label Content="Faction name" HorizontalAlignment="Left" Margin="43,69,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="auth" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,149,0,0"/>
-        <Label Content="Author" HorizontalAlignment="Left" Margin="43,123,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Side" HorizontalAlignment="Left" Margin="199,15,0,0" VerticalAlignment="Top" Width="120"/>
-        <ListBox Name="sideListBox" HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="120" Margin="199,41,0,0" SelectionChanged="ListBox_SelectionChanged"/>
-        <TextBox Name="debug" HorizontalAlignment="Left" Height="509" Margin="364,67,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="472" TextChanged="TextBox_TextChanged"/>
+        <TextBox Name="fnc" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="42,85,0,0"/>
+        <Label Content="Faction class name" HorizontalAlignment="Left" Margin="42,54,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="fn" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,139,0,0"/>
+        <Label Content="Faction name" HorizontalAlignment="Left" Margin="42,108,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="auth" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,193,0,0"/>
+        <Label Content="Author" HorizontalAlignment="Left" Margin="43,162,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Side" HorizontalAlignment="Left" Margin="199,54,0,0" VerticalAlignment="Top" Width="120"/>
+        <ListBox Name="sideListBox" HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="120" Margin="199,85,0,0"/>
+        <TextBox Name="debug" HorizontalAlignment="Left" Height="509" Margin="385,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="472"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="361" Margin="27,253,0,0" Stroke="Black" VerticalAlignment="Top" Width="308" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.184"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.497"/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <TextBox x:Name="auth_Copy" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="42,305,0,0"/>
+        <Label Content="Uniform" HorizontalAlignment="Left" Margin="42,279,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="178,305,0,0"/>
+        <Label Content="Vest" HorizontalAlignment="Left" Margin="178,279,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="42,359,0,0"/>
+        <Label Content="Backpack" HorizontalAlignment="Left" Margin="42,333,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="178,359,0,0"/>
+        <Label Content="Weapon" HorizontalAlignment="Left" Margin="178,333,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Soldier Config" HorizontalAlignment="Left" Margin="125,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.289,0.154" Width="84"/>
+        <Label Content="Base Addon Config" HorizontalAlignment="Left" Margin="125,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.289,0.154" Width="114"/>
+        <TextBox x:Name="auth_Copy4" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,413,0,0"/>
+        <Label Content="Weapon Magazines" HorizontalAlignment="Left" Margin="43,387,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Number of Magazines" HorizontalAlignment="Left" Margin="178,387,0,0" VerticalAlignment="Top" Width="132"/>
+        <xctk:IntegerUpDown FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="184,413,595,331"/>
+        <TextBox x:Name="auth_Copy5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,467,0,0"/>
+        <Label Content="Helmet" HorizontalAlignment="Left" Margin="43,441,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy6" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="178,467,0,0"/>
+        <Label Content="Mask" HorizontalAlignment="Left" Margin="178,441,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy7" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,525,0,0"/>
+        <Label Content="NVG" HorizontalAlignment="Left" Margin="43,499,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy8" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="178,527,0,0"/>
+        <Label Content="MG Weapon" HorizontalAlignment="Left" Margin="178,501,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="auth_Copy9" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="178,527,0,0"/>
+        <TextBox x:Name="auth_Copy10" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="43,581,0,0"/>
+        <Label Content="MG Magazines" HorizontalAlignment="Left" Margin="43,555,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Number of Magazines" HorizontalAlignment="Left" Margin="178,555,0,0" VerticalAlignment="Top" Width="132"/>
+        <xctk:IntegerUpDown FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="184,581,595,163"/>
+
 
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Arma3FactionGenerator
 {
@@ -20,6 +21,11 @@ namespace Arma3FactionGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
+        static class FactionGenVars
+        {
+            public static string author;
+            public static string factionClass;
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -70,8 +76,12 @@ class cfgVehicleClasses
             string FunNameClass = fnc.Text;
             string FunName = fn.Text;
             string Author = auth.Text;
+            Author = Author + " via A3FG";
+            FactionGenVars.author = Author;
+            FactionGenVars.factionClass = FunNameClass;
             int side = sideListBox.SelectedIndex;
-            string finall = generateFaction(FunNameClass, FunName, Author, side);
+            string finall = "";
+            finall = generateFaction(FunNameClass, FunName, Author, side);
             debug.Text = finall;
         }
 
