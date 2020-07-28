@@ -70,6 +70,33 @@ class cfgVehicleClasses
             return config;
 
         }
+        private string generateSoldiers()
+        {
+            string config = $@"
+            class CfgVehicles
+        {{
+            class B_Soldier_base_F;
+            class Army_Squadleader : B_Soldier_base_F
+            {{
+                _generalMacro = ""Army_Squadleader""; 
+	scope = 2;
+	displayName = ""Squad Leader"";
+	faction = a_units; 
+	vehicleClass = ""army_units"";
+	icon = ""iconManLeader"";
+	nakedUniform = ""U_BasicBody"";  
+	uniformClass = ""U_B_CombatUniform_mcam"";
+	backpack = ""B_AssaultPack_khk"";
+	linkedItems[] = {{""V_PlateCarrier3_rgr"", ""H_HelmetB_light"", ""NVGoggles"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	respawnLinkedItems[] = {{""V_PlateCarrier3_rgr"", ""H_HelmetB_light"", ""NVGoggles"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	weapons[] = {{""arifle_MX_F"",""Binocular""}};
+	respawnweapons[] = {{""arifle_MX_F"",""Binocular""}};
+	magazines[] = {{""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""HandGrenade"",""HandGrenade"",}};
+	Respawnmagazines[] = {{""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag"",""HandGrenade"",""HandGrenade"",}};
+	}};
+        }};";
+            return config;
+    }
 
         private void generateConfig(object sender, RoutedEventArgs e)
         {
