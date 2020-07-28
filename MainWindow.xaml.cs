@@ -23,6 +23,16 @@ namespace Arma3FactionGenerator
         public MainWindow()
         {
             InitializeComponent();
+            string[] sideArray = { "BLUFOR", "INDFOR", "OPFOR", "CIV" };
+            foreach (string side in sideArray)
+            {
+                sideListBox.Items.Add(side);
+            }
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
