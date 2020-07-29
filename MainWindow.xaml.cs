@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Arma3FactionGenerator
@@ -84,33 +85,121 @@ class cfgVehicleClasses
                 MGmags = MGmags + '"' + MGWeaponAmmo + '"' + ",";
             }
             MGmags = MGmags + '"' + MGWeaponAmmo + '"';
-
+            string SquadLead = $@"
+class CfgVehicles
+{{
+    class B_Soldier_base_F;
+    class {FacNameClass}_f_Squadleader : B_Soldier_base_F
+    {{
+        _generalMacro = ""{FacNameClass}_f_Squadleader""; 
+	    scope = 2;
+	    displayName = ""Squad Leader"";
+	    faction = {FacNameClass}_faction; 
+	    vehicleClass = ""{FacNameClass}_Men"";
+	    icon = ""iconManLeader"";
+	    nakedUniform = ""U_BasicBody"";  
+	    uniformClass = ""{uniform}"";
+	    backpack = ""{backpack}"";
+	    linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    weapons[] = {{""{Weapon}"",""Binocular""}};
+	    respawnweapons[] = {{""{Weapon}"",""Binocular""}};
+	    magazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
+	    Respawnmagazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
+    }};";
+            string Soldier = $@"
+    class {FacNameClass}_f_Soldier : B_Soldier_base_F
+    {{
+        _generalMacro = ""{FacNameClass}_f_Soldier""; 
+	    scope = 2;
+	    displayName = ""Soldier"";
+	    faction = {FacNameClass}_faction; 
+	    vehicleClass = ""{FacNameClass}_Men"";
+	    icon = ""iconMan"";
+	    nakedUniform = ""U_BasicBody"";  
+	    uniformClass = ""{uniform}"";
+	    backpack = ""{backpack}"";
+	    linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    weapons[] = {{""{Weapon}"",""Binocular""}};
+	    respawnweapons[] = {{""{Weapon}"",""Binocular""}};
+	    magazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
+	    Respawnmagazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
+    }};";
+            string Mgunner = $@"
+    class {FacNameClass}_f_mg : B_Soldier_base_F
+    {{
+        _generalMacro = ""{FacNameClass}_f_mg""; 
+	    scope = 2;
+	    displayName = ""Machine Gunner"";
+	    faction = {FacNameClass}_faction; 
+	    vehicleClass = ""{FacNameClass}_Men"";
+	    icon = ""iconManMG"";
+	    nakedUniform = ""U_BasicBody"";  
+	    uniformClass = ""{uniform}"";
+	    backpack = ""{backpack}"";
+	    linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    weapons[] = {{""{MGWeapon}"",""Binocular""}};
+	    respawnweapons[] = {{""{MGWeapon}"",""Binocular""}};
+	    magazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
+	    Respawnmagazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
+    }};
+}};";
+            return SquadLead+Soldier+Mgunner;
+        }
+        private string generateGroups(int side,string FacNameClass, string FacName)
+        {
+            string sideName = "";
+            string restOfUnits = "";
+            switch (side)
+            {
+                case 0:
+                    sideName = "EAST";
+                    break;
+                case 1:
+                    sideName = "WEST";
+                    break;
+                case 2:
+                    sideName = "GUER";
+                    break;
+            }
+            restOfUnits = generateUnits(FacNameClass);
             string config = $@"
-            class CfgVehicles
+class CfgGroups
+{{
+    class {sideName}
+    {{
+        name = ""Custom Group"";
+        side = {side};
+        class Infantry
         {{
-            class B_Soldier_base_F;
-            class {FacNameClass}_f_Squadleader : B_Soldier_base_F
+            name=""Infantry"";
+            class {FacNameClass}_g_inf
             {{
-                _generalMacro = ""{FacNameClass}_f_Squadleader""; 
-	scope = 2;
-	displayName = ""Squad Leader"";
-	faction = {FacNameClass}_faction; 
-	vehicleClass = ""{FacNameClass}_Men"";
-	icon = ""iconManLeader"";
-	nakedUniform = ""U_BasicBody"";  
-	uniformClass = ""{uniform}"";
-	backpack = ""{backpack}"";
-	linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
-	respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
-	weapons[] = {{""{Weapon}"",""Binocular""}};
-	respawnweapons[] = {{""{Weapon}"",""Binocular""}};
-	magazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
-	Respawnmagazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
-	}};
-        }};";
+                name = ""{FacName}"";
+                side= {side};
+                faction= ""{FacNameClass}"";
+                class Unit0
+                {{
+                    side = {side};
+                    vehicle = ""{FacNameClass}_f_Squadleader""
+					rank = ""CORPORAL"";
+                    position[] = {{ 0, 0, 0 }};
+                }};
+                {restOfUnits}
+            }};
+        }};
+    }};
+                    
+}};";
             return config;
         }
-
+        private string generateUnits(string FacNameClass)
+        {
+            string units = "";
+            return units;
+        }
         private void generateConfig(object sender, RoutedEventArgs e)
         {
             string uniform = uni.Text;
@@ -135,7 +224,17 @@ class cfgVehicleClasses
             string finall = "";
             finall = generateFaction(FacNameClass, FacName, Author, side);
             finall = finall + generateSoldiers(uniform, SVest, SBackpack, Weapon, WeaponAmmo, WeaponAmmoNum, MGWeapon, MGWeaponAmmo, MGWeaponAmmoNum, NightVis, SMask, SHelmet, FacNameClass);
+            finall = finall + generateGroups(side, FacNameClass, FacName);
             debug.Text = finall;
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                string path = dialog.FileName;
+                File.WriteAllText(path+"/config.cpp",finall);
+                MessageBox.Show("Wygenerowano plik config.cpp w folderze " + path, "Generowanie zakończone powodzeniem");
+            }
         }
 
     }
