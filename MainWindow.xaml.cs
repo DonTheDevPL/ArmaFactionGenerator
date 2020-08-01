@@ -107,15 +107,15 @@ class cfgVehicleClasses
             string ATmags = "";
             for (int i = 0; i < atWeaponAmmoNum; i++)
             {
-                ATmags = ATmags + '"' + atWeaponAmmoNum + '"' + ",";
+                ATmags = ATmags + '"' + atWeaponAmmo + '"' + ",";
             }
-            ATmags = ATmags + '"' + atWeaponAmmoNum + '"';
+            ATmags = ATmags + '"' + atWeaponAmmo + '"';
             string Marksmanmags = "";
             for (int i = 0; i < marksmanWeaponAmmoNum; i++)
             {
-                Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmoNum + '"' + ",";
+                Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmo + '"' + ",";
             }
-            Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmoNum + '"';
+            Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmo + '"';
             string SquadLead = $@"
 class CfgVehicles
 {{
