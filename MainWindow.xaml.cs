@@ -71,7 +71,26 @@ class cfgVehicleClasses
             return config;
 
         }
-        private string generateSoldiers(string uniform, string SVest, string SBackpack, string Weapon, string WeaponAmmo, int WeaponAmmoNum, string MGWeapon, string MGWeaponAmmo, int MGWeaponAmmoNum, string NightVis, string SMask, string SHelmet,string FacNameClass)
+        private string generateSoldiers(
+            string uniform, 
+            string SVest, 
+            string SBackpack, 
+            string Weapon, 
+            string WeaponAmmo, 
+            int WeaponAmmoNum, 
+            string MGWeapon, 
+            string MGWeaponAmmo, 
+            int MGWeaponAmmoNum, 
+            string NightVis, 
+            string SMask, 
+            string SHelmet,
+            string FacNameClass,
+            int marksmanWeaponAmmoNum,
+            string marksmanWeaponAmmo,
+            string marksmanWeapon,
+            int atWeaponAmmoNum,
+            string atWeaponAmmo,
+            string atWeapon)
         {
             string mags = "";
             for (int i = 0; i < WeaponAmmoNum-1; i++)
@@ -80,11 +99,23 @@ class cfgVehicleClasses
             }
             mags = mags + '"' + WeaponAmmo + '"';
             string MGmags = "";
-            for (int i = 0; i < WeaponAmmoNum; i++)
+            for (int i = 0; i < MGWeaponAmmoNum; i++)
             {
                 MGmags = MGmags + '"' + MGWeaponAmmo + '"' + ",";
             }
             MGmags = MGmags + '"' + MGWeaponAmmo + '"';
+            string ATmags = "";
+            for (int i = 0; i < atWeaponAmmoNum; i++)
+            {
+                ATmags = ATmags + '"' + atWeaponAmmoNum + '"' + ",";
+            }
+            ATmags = ATmags + '"' + atWeaponAmmoNum + '"';
+            string Marksmanmags = "";
+            for (int i = 0; i < marksmanWeaponAmmoNum; i++)
+            {
+                Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmoNum + '"' + ",";
+            }
+            Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmoNum + '"';
             string SquadLead = $@"
 class CfgVehicles
 {{
@@ -99,9 +130,9 @@ class CfgVehicles
 	    icon = ""iconManLeader"";
 	    nakedUniform = ""U_BasicBody"";  
 	    uniformClass = ""{uniform}"";
-	    backpack = ""{backpack}"";
-	    linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
-	    respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    backpack = ""{SBackpack}"";
+	    linkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
 	    weapons[] = {{""{Weapon}"",""Binocular""}};
 	    respawnweapons[] = {{""{Weapon}"",""Binocular""}};
 	    magazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
@@ -118,9 +149,9 @@ class CfgVehicles
 	    icon = ""iconMan"";
 	    nakedUniform = ""U_BasicBody"";  
 	    uniformClass = ""{uniform}"";
-	    backpack = ""{backpack}"";
-	    linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
-	    respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    backpack = ""{SBackpack}"";
+	    linkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
 	    weapons[] = {{""{Weapon}"",""Binocular""}};
 	    respawnweapons[] = {{""{Weapon}"",""Binocular""}};
 	    magazines[] = {{{mags},""HandGrenade"",""HandGrenade"",}};
@@ -137,9 +168,29 @@ class CfgVehicles
 	    icon = ""iconManMG"";
 	    nakedUniform = ""U_BasicBody"";  
 	    uniformClass = ""{uniform}"";
-	    backpack = ""{backpack}"";
-	    linkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
-	    respawnLinkedItems[] = {{""{vest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    backpack = ""{SBackpack}"";
+	    linkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    weapons[] = {{""{MGWeapon}"",""Binocular""}};
+	    respawnweapons[] = {{""{MGWeapon}"",""Binocular""}};
+	    magazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
+	    Respawnmagazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
+    }};
+}};";
+            string Marksman = $@"
+    class {FacNameClass}_f_mark : B_Soldier_base_F
+    {{
+        _generalMacro = ""{FacNameClass}_f_mg""; 
+	    scope = 2;
+	    displayName = ""Marksman"";
+	    faction = {FacNameClass}_faction; 
+	    vehicleClass = ""{FacNameClass}_Men"";
+	    icon = ""iconManMG"";
+	    nakedUniform = ""U_BasicBody"";  
+	    uniformClass = ""{uniform}"";
+	    backpack = ""{SBackpack}"";
+	    linkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
 	    weapons[] = {{""{MGWeapon}"",""Binocular""}};
 	    respawnweapons[] = {{""{MGWeapon}"",""Binocular""}};
 	    magazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
@@ -202,6 +253,12 @@ class CfgGroups
         }
         private void generateConfig(object sender, RoutedEventArgs e)
         {
+            string atWeapon = at_weap.Text;
+            string atWeaponAmmo = at_weap_mag.Text;
+            int atWeaponAmmoNum = (int)at_weap_mag_num.Value;
+            string marksmanWeapon = marksman_weap.Text;
+            string marksmanWeaponAmmo = marksman_weap_mag.Text;
+            int marksmanWeaponAmmoNum = (int)marksman_weap_mag_num.Value;
             string uniform = uni.Text;
             string SVest = vest.Text;
             string SBackpack = backpack.Text;
@@ -223,19 +280,195 @@ class CfgGroups
             int side = sideListBox.SelectedIndex;
             string finall = "";
             finall = generateFaction(FacNameClass, FacName, Author, side);
-            finall = finall + generateSoldiers(uniform, SVest, SBackpack, Weapon, WeaponAmmo, WeaponAmmoNum, MGWeapon, MGWeaponAmmo, MGWeaponAmmoNum, NightVis, SMask, SHelmet, FacNameClass);
+            finall = finall + generateSoldiers(uniform, SVest, SBackpack, Weapon, WeaponAmmo, WeaponAmmoNum, MGWeapon, MGWeaponAmmo, MGWeaponAmmoNum, NightVis, SMask, SHelmet, FacNameClass, marksmanWeaponAmmoNum, marksmanWeaponAmmo, marksmanWeapon, atWeaponAmmoNum, atWeaponAmmo, atWeapon);
             finall = finall + generateGroups(side, FacNameClass, FacName);
+            //debug----------------------------------------------
             debug.Text = finall;
+            //debug----------------------------------------------
+            string finallSettings = "";
+            string[] Settings = new string[] { at_weap.Text,
+            at_weap_mag.Text,
+            at_weap_mag_num.Value.ToString(),
+            marksman_weap.Text,
+            marksman_weap_mag.Text,
+            marksman_weap_mag_num.Value.ToString(),
+            uni.Text,
+            vest.Text,
+            backpack.Text,
+            weap.Text,
+            mg_weap.Text,
+            weap_mag.Text,
+            mg_weap_mag.Text,
+            weap_mag_num.Value.ToString(),
+            mg_weap_mag_num.Value.ToString(),
+            nvg.Text,
+            mask.Text,
+            helmet.Text,
+            fnc.Text,
+            fn.Text,
+            auth.Text,
+            sideListBox.SelectedIndex.ToString() };
+            foreach (string s in Settings)
+            {
+                if (s == "")
+                {
+                    finallSettings = finallSettings + "ValueWasNotDefined" + "\n";
+                }
+                else
+                {
+                    finallSettings = finallSettings + s + "\n";
+                }
+            }
+            exportAll(finallSettings, finall);
+        }
+        private void importSettings(object sender, RoutedEventArgs e) {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "TEXT Files (*.txt)|*.txt";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string filePath = dlg.FileName;
+                //debug.Text = dlg.FileName+"\n";
+                string[] preprocess = File.ReadAllLines(filePath);
+                int counter = 0;
+                foreach (string s in preprocess)
+                {
+                    if (s == "ValueWasNotDefined") { counter++; continue;}
+                    //debug.Text = debug.Text + s+"\n";
+                    switch (counter)
+                    {
+                        case 0:
+                            at_weap.Text = s;
+                            break;
+                        case 1:
+                            at_weap_mag.Text = s;
+                            break;
+                        case 2:
+                            at_weap_mag_num.Value = Convert.ToInt32(s);
+                            break;
+                        case 3:
+                            marksman_weap.Text = s;
+                            break;
+                        case 4:
+                            marksman_weap_mag.Text = s;
+                            break;
+                        case 5:
+                            marksman_weap_mag_num.Value = Convert.ToInt32(s);
+                            break;
+                        case 6:
+                            uni.Text = s;
+                            break;
+                        case 7:
+                            vest.Text = s;
+                            break;
+                        case 8:
+                            backpack.Text = s;
+                            break;
+                        case 9:
+                            weap.Text = s;
+                            break;
+                        case 10:
+                            mg_weap.Text = s;
+                            break;
+                        case 11:
+                            weap_mag.Text = s;
+                            break;
+                        case 12:
+                            mg_weap_mag.Text = s;
+                            break;
+                        case 13:
+                            weap_mag_num.Value = Convert.ToInt32(s);
+                            break;
+                        case 14:
+                            mg_weap_mag_num.Value = Convert.ToInt32(s);
+                            break;
+                        case 15:
+                            nvg.Text = s;
+                            break;
+                        case 16:
+                            mask.Text = s;
+                            break;
+                        case 17:
+                            helmet.Text = s;
+                            break;
+                        case 18:
+                            fnc.Text = s;
+                            break;
+                        case 19:
+                            fn.Text = s;
+                            break;
+                        case 20:
+                            auth.Text = s;
+                            break;
+                        case 21:
+                            sideListBox.SelectedIndex = Convert.ToInt32(s);
+                            break;
+                    }
+                    counter++;
+                }
+            }
+        }
+        private void exportSettings(object sender, RoutedEventArgs e) {
+            string finallSettings = "";
+            string[] Settings = new string[] { at_weap.Text,
+            at_weap_mag.Text,
+            at_weap_mag_num.Value.ToString(),
+            marksman_weap.Text,
+            marksman_weap_mag.Text,
+            marksman_weap_mag_num.Value.ToString(),
+            uni.Text,
+            vest.Text,
+            backpack.Text,
+            weap.Text,
+            mg_weap.Text,
+            weap_mag.Text,
+            mg_weap_mag.Text,
+            weap_mag_num.Value.ToString(),
+            mg_weap_mag_num.Value.ToString(),
+            nvg.Text,
+            mask.Text,
+            helmet.Text,
+            fnc.Text,
+            fn.Text,
+            auth.Text,
+            sideListBox.SelectedIndex.ToString() };
+            foreach (string s in Settings) {
+                if (s == "") {
+                    finallSettings = finallSettings + "ValueWasNotDefined" + "\n";
+                }
+                else
+                {
+                    finallSettings = finallSettings + s + "\n";
+                }
+            }
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "C:\\Users";
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                DateTime now = DateTime.Now;
+                string timestamp = "";
+                timestamp = now.Hour.ToString() + "_"+ now.Minute.ToString() + "_" + now.Second.ToString() + "_" + now.Millisecond.ToString();
                 string path = dialog.FileName;
-                File.WriteAllText(path+"/config.cpp",finall);
-                MessageBox.Show("Wygenerowano plik config.cpp w folderze " + path, "Generowanie zakończone powodzeniem");
+                File.WriteAllText(path + "/settings_" + timestamp + ".txt", finallSettings);
+                MessageBox.Show("Wygenerowano plik settings.txt w folderze " + path, "Generowanie zakończone powodzeniem");
             }
         }
-
+        private void exportAll(string settings, string config) {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                DateTime now = DateTime.Now;
+                string timestamp = "";
+                timestamp = now.Hour.ToString() + "_" + now.Minute.ToString() + "_" + now.Second.ToString() + "_" + now.Millisecond.ToString();
+                string path = dialog.FileName;
+                File.WriteAllText(path + "/settings_" + timestamp + ".txt", settings);
+                File.WriteAllText(path + "/config.cpp", config);
+                MessageBox.Show("Wygenerowano 2 pliki (settings.txt, config.cpp) w folderze " + path, "Generowanie zakończone powodzeniem");
+            }
+        }
     }
 }
