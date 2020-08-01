@@ -175,29 +175,47 @@ class CfgVehicles
 	    respawnweapons[] = {{""{MGWeapon}"",""Binocular""}};
 	    magazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
 	    Respawnmagazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
-    }};
-}};";
-            string Marksman = $@"
-    class {FacNameClass}_f_mark : B_Soldier_base_F
+    }};";
+            string ATSoldier = $@"
+    class {FacNameClass}_f_at : B_Soldier_base_F
     {{
-        _generalMacro = ""{FacNameClass}_f_mg""; 
+        _generalMacro = ""{FacNameClass}_f_at""; 
 	    scope = 2;
-	    displayName = ""Marksman"";
+	    displayName = ""AT Operator"";
 	    faction = {FacNameClass}_faction; 
 	    vehicleClass = ""{FacNameClass}_Men"";
-	    icon = ""iconManMG"";
+	    icon = ""iconManAT"";
 	    nakedUniform = ""U_BasicBody"";  
 	    uniformClass = ""{uniform}"";
 	    backpack = ""{SBackpack}"";
 	    linkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
 	    respawnLinkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
-	    weapons[] = {{""{MGWeapon}"",""Binocular""}};
-	    respawnweapons[] = {{""{MGWeapon}"",""Binocular""}};
-	    magazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
-	    Respawnmagazines[] = {{{MGmags},""HandGrenade"",""HandGrenade"",}};
+	    weapons[] = {{""{Weapon}"",""{atWeapon}"",""Binocular""}};
+	    respawnweapons[] = {{""{Weapon}"",""{atWeapon}"",""Binocular""}};
+	    magazines[] = {{{mags},{ATmags},""HandGrenade"",""HandGrenade"",}};
+	    Respawnmagazines[] = {{{mags},{ATmags},""HandGrenade"",""HandGrenade"",}};
+    }};";
+            string Marksman = $@"
+    class {FacNameClass}_f_mark : B_Soldier_base_F
+    {{
+        _generalMacro = ""{FacNameClass}_f_mark""; 
+	    scope = 2;
+	    displayName = ""Marksman"";
+	    faction = {FacNameClass}_faction; 
+	    vehicleClass = ""{FacNameClass}_Men"";
+	    icon = ""iconManRecon"";
+	    nakedUniform = ""U_BasicBody"";  
+	    uniformClass = ""{uniform}"";
+	    backpack = ""{SBackpack}"";
+	    linkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}}; 
+	    respawnLinkedItems[] = {{""{SVest}"", ""{SHelmet}"", ""{NightVis}"", ""ItemMap"", ""ItemCompass"", ""ItemWatch"", ""ItemRadio""}};
+	    weapons[] = {{""{marksmanWeapon}"",""Binocular""}};
+	    respawnweapons[] = {{""{marksmanWeapon}"",""Binocular""}};
+	    magazines[] = {{{Marksmanmags},""HandGrenade"",""HandGrenade"",}};
+	    Respawnmagazines[] = {{{Marksmanmags},""HandGrenade"",""HandGrenade"",}};
     }};
 }};";
-            return SquadLead+Soldier+Mgunner;
+            return SquadLead + Soldier + Mgunner + ATSoldier + Marksman;
         }
         private string generateGroups(int side,string FacNameClass, string FacName)
         {
