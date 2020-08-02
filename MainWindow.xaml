@@ -76,13 +76,13 @@
         </Rectangle>
         <Label Content="Squad Config" HorizontalAlignment="Left" Margin="464,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.289,0.154" Width="84"/>
         <Label Content="Number of Rifleman" HorizontalAlignment="Left" Margin="358,38,0,0" VerticalAlignment="Top" Width="132"/>
-        <xctk:IntegerUpDown x:Name="mg_weap_mag_num_Copy" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="358,64,421,680" RenderTransformOrigin="0.518,0.156"/>
+        <xctk:IntegerUpDown x:Name="riflemanAmmount" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="358,64,421,680" RenderTransformOrigin="0.518,0.156"/>
         <Label Content="Number of MG" HorizontalAlignment="Left" Margin="512,38,0,0" VerticalAlignment="Top" Width="132"/>
-        <xctk:IntegerUpDown x:Name="mg_weap_mag_num_Copy1" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="512,64,267,680"/>
+        <xctk:IntegerUpDown x:Name="MGAmmount" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="512,64,267,680"/>
         <Label Content="Number of AT" HorizontalAlignment="Left" Margin="358,92,0,0" VerticalAlignment="Top" Width="132" RenderTransformOrigin="0.485,1.654"/>
-        <xctk:IntegerUpDown x:Name="mg_weap_mag_num_Copy2" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="358,118,421,626" RenderTransformOrigin="0.482,2.312"/>
+        <xctk:IntegerUpDown x:Name="ATAmmount" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="358,118,421,626" RenderTransformOrigin="0.482,2.312"/>
         <Label Content="Number of Marksman" HorizontalAlignment="Left" Margin="512,92,0,0" VerticalAlignment="Top" Width="132" RenderTransformOrigin="0.485,1.654"/>
-        <xctk:IntegerUpDown x:Name="mg_weap_mag_num_Copy3" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="512,118,267,626" RenderTransformOrigin="0.482,2.312"/>
+        <xctk:IntegerUpDown x:Name="MarksmanAmmount" FormatString="N0" Value="1" Increment="1" Maximum="30" Margin="512,118,267,626" RenderTransformOrigin="0.482,2.312"/>
         <TextBox x:Name="at_weap" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="184,431,0,0"/>
         <Label Content="AT Weapon" HorizontalAlignment="Left" Margin="184,405,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="at_weap_mag" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="184,495,0,0"/>

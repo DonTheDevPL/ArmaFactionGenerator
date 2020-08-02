@@ -217,7 +217,7 @@ class CfgVehicles
 }};";
             return SquadLead + Soldier + Mgunner + ATSoldier + Marksman;
         }
-        private string generateGroups(int side,string FacNameClass, string FacName)
+        private string generateGroups(int side,string FacNameClass, string FacName,int riflemanAmmountVal, int MGAmmountVal, int ATAmmountVal, int MarksmanAmmountVal)
         {
             string sideName = "";
             string restOfUnits = "";
@@ -233,7 +233,7 @@ class CfgVehicles
                     sideName = "GUER";
                     break;
             }
-            restOfUnits = generateUnits(FacNameClass);
+            restOfUnits = generateUnits(FacNameClass, side, riflemanAmmountVal, MGAmmountVal, ATAmmountVal, MarksmanAmmountVal);
             string config = $@"
 class CfgGroups
 {{
@@ -241,22 +241,25 @@ class CfgGroups
     {{
         name = ""Custom Group"";
         side = {side};
-        class Infantry
-        {{
-            name=""Infantry"";
-            class {FacNameClass}_g_inf
+        class {FacNameClass} {{
+            name=""{FacName}"";
+            class Infantry
             {{
-                name = ""{FacName}"";
-                side= {side};
-                faction= ""{FacNameClass}"";
-                class Unit0
+                name=""Custom Infantry Groups"";
+                class {FacNameClass}_g_inf
                 {{
-                    side = {side};
-                    vehicle = ""{FacNameClass}_f_Squadleader""
-					rank = ""CORPORAL"";
-                    position[] = {{ 0, 0, 0 }};
+                    name = ""Infantry Squad"";
+                    side= {side};
+                    faction= ""{FacNameClass}"";
+                    class Unit0
+                    {{
+                        side = {side};
+                        vehicle = ""{FacNameClass}_f_Squadleader"";
+					    rank = ""CORPORAL"";
+                        position[] = {{ 0, 0, 0 }};
+                    }};
+                    {restOfUnits}
                 }};
-                {restOfUnits}
             }};
         }};
     }};
@@ -264,9 +267,93 @@ class CfgGroups
 }};";
             return config;
         }
-        private string generateUnits(string FacNameClass)
+        private string generateUnits(string FacNameClass, int side, int riflemanAmmountVal, int MGAmmountVal, int ATAmmountVal, int MarksmanAmmountVal)
         {
+            int counter = 1;
+            int pos1 = 5;
+            int pos2 = -5;
             string units = "";
+            //riflemanAmmountVal, MGAmmountVal, ATAmmountVal, MarksmanAmmountVal
+            for (int i = 0; i < riflemanAmmountVal; i++)
+            {
+                string patternRifleman = $@"
+                    class Unit{counter}
+                    {{
+                        side = {side};
+                        vehicle = ""{FacNameClass}_f_Soldier"";
+					    rank = ""PRIVATE"";
+                        position[] = {{ {pos1}, {pos2}, 0 }};
+                    }};
+                ";
+                if (counter % 2 == 0)
+                {
+                    pos2 = pos2 - 5;
+                    pos1 = pos1 - 5;
+                }
+                counter++;
+                units = units + patternRifleman;
+                pos1 = pos1 * -1;
+            }
+            for (int i = 0; i < MGAmmountVal; i++)
+            {
+                string patternMG = $@"
+                    class Unit{counter}
+                    {{
+                        side = {side};
+                        vehicle = ""{FacNameClass}_f_mg"";
+					    rank = ""PRIVATE"";
+                        position[] = {{ {pos1}, {pos2}, 0 }};
+                    }};
+                ";
+                if (counter % 2 == 0)
+                {
+                    pos2 = pos2 - 5;
+                    pos1 = pos1 - 5;
+                }
+                counter++;
+                units = units + patternMG;
+                pos1 = pos1 * -1;
+            }
+            for (int i = 0; i < ATAmmountVal; i++)
+            {
+                string patternAT = $@"
+                    class Unit{counter}
+                    {{
+                        side = {side};
+                        vehicle = ""{FacNameClass}_f_at"";
+					    rank = ""PRIVATE"";
+                        position[] = {{ {pos1}, {pos2}, 0 }};
+                    }};
+                ";
+                if (counter % 2 == 0)
+                {
+                    pos2 = pos2 - 5;
+                    pos1 = pos1 - 5;
+                }
+                counter++;
+                units = units + patternAT;
+                pos1 = pos1 * -1;
+            }
+            for (int i = 0; i < MarksmanAmmountVal; i++)
+            {
+                string patternMarksman = $@"
+                    class Unit{counter}
+                    {{
+                        side = {side};
+                        vehicle = ""{FacNameClass}_f_mark"";
+					    rank = ""PRIVATE"";
+                        position[] = {{ {pos1}, {pos2}, 0 }};
+                    }};
+                ";
+                if (counter % 2 == 0)
+                {
+                    pos2 = pos2 - 5;
+                    pos1 = pos1 - 5;
+                }
+                counter++;
+                units = units + patternMarksman;
+                pos1 = pos1 * -1;
+            }
             return units;
         }
         private void generateConfig(object sender, RoutedEventArgs e)
@@ -292,6 +379,10 @@ class CfgGroups
             string FacNameClass = fnc.Text;
             string FacName = fn.Text;
             string Author = auth.Text;
+            int riflemanAmmountVal = (int)riflemanAmmount.Value;
+            int MGAmmountVal = (int)MGAmmount.Value;
+            int ATAmmountVal = (int)ATAmmount.Value;
+            int MarksmanAmmountVal = (int)MarksmanAmmount.Value;
             Author = Author + " via A3FG";
             FactionGenVars.author = Author;
             FactionGenVars.factionClass = FacNameClass;
@@ -299,7 +390,7 @@ class CfgGroups
             string finall = "";
             finall = generateFaction(FacNameClass, FacName, Author, side);
             finall = finall + generateSoldiers(uniform, SVest, SBackpack, Weapon, WeaponAmmo, WeaponAmmoNum, MGWeapon, MGWeaponAmmo, MGWeaponAmmoNum, NightVis, SMask, SHelmet, FacNameClass, marksmanWeaponAmmoNum, marksmanWeaponAmmo, marksmanWeapon, atWeaponAmmoNum, atWeaponAmmo, atWeapon);
-            finall = finall + generateGroups(side, FacNameClass, FacName);
+            finall = finall + generateGroups(side, FacNameClass, FacName, riflemanAmmountVal, MGAmmountVal, ATAmmountVal, MarksmanAmmountVal);
             //debug----------------------------------------------
             debug.Text = finall;
             //debug----------------------------------------------
@@ -325,7 +416,12 @@ class CfgGroups
             fnc.Text,
             fn.Text,
             auth.Text,
-            sideListBox.SelectedIndex.ToString() };
+            sideListBox.SelectedIndex.ToString(),
+            riflemanAmmount.Value.ToString(),
+            MGAmmount.Value.ToString(),
+            ATAmmount.Value.ToString(),
+            MarksmanAmmount.Value.ToString()
+            };
             foreach (string s in Settings)
             {
                 if (s == "")
@@ -422,6 +518,18 @@ class CfgGroups
                         case 21:
                             sideListBox.SelectedIndex = Convert.ToInt32(s);
                             break;
+                        case 22:
+                            riflemanAmmount.Value = Convert.ToInt32(s);
+                            break;
+                        case 23:
+                            MGAmmount.Value = Convert.ToInt32(s);
+                            break;
+                        case 24:
+                            ATAmmount.Value = Convert.ToInt32(s);
+                            break;
+                        case 25:
+                            MarksmanAmmount.Value = Convert.ToInt32(s);
+                            break;
                     }
                     counter++;
                 }
@@ -450,7 +558,12 @@ class CfgGroups
             fnc.Text,
             fn.Text,
             auth.Text,
-            sideListBox.SelectedIndex.ToString() };
+            sideListBox.SelectedIndex.ToString(),
+            riflemanAmmount.Value.ToString(),
+            MGAmmount.Value.ToString(),
+            ATAmmount.Value.ToString(),
+            MarksmanAmmount.Value.ToString()
+            };
             foreach (string s in Settings) {
                 if (s == "") {
                     finallSettings = finallSettings + "ValueWasNotDefined" + "\n";
