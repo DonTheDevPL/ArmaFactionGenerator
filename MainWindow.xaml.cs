@@ -274,85 +274,97 @@ class CfgGroups
             int pos2 = -5;
             string units = "";
             //riflemanAmmountVal, MGAmmountVal, ATAmmountVal, MarksmanAmmountVal
-            for (int i = 0; i < riflemanAmmountVal; i++)
+            if (riflemanAmmountVal != 0)
             {
-                string patternRifleman = $@"
-                    class Unit{counter}
-                    {{
-                        side = {side};
-                        vehicle = ""{FacNameClass}_f_Soldier"";
-					    rank = ""PRIVATE"";
-                        position[] = {{ {pos1}, {pos2}, 0 }};
-                    }};
-                ";
-                if (counter % 2 == 0)
+                for (int i = 0; i < riflemanAmmountVal; i++)
                 {
-                    pos2 = pos2 - 5;
-                    pos1 = pos1 - 5;
+                    string patternRifleman = $@"
+                class Unit{counter}
+                {{
+                    side = {side};
+                    vehicle = ""{FacNameClass}_f_Soldier"";
+				    rank = ""PRIVATE"";
+                    position[] = {{ {pos1}, {pos2}, 0 }};
+                }};
+                ";
+                    if (counter % 2 == 0)
+                    {
+                        pos2 = pos2 - 5;
+                        pos1 = pos1 - 5;
+                    }
+                    counter++;
+                    units = units + patternRifleman;
+                    pos1 = pos1 * -1;
                 }
-                counter++;
-                units = units + patternRifleman;
-                pos1 = pos1 * -1;
             }
-            for (int i = 0; i < MGAmmountVal; i++)
+            if (riflemanAmmountVal != 0)
             {
-                string patternMG = $@"
-                    class Unit{counter}
-                    {{
-                        side = {side};
-                        vehicle = ""{FacNameClass}_f_mg"";
-					    rank = ""PRIVATE"";
-                        position[] = {{ {pos1}, {pos2}, 0 }};
-                    }};
-                ";
-                if (counter % 2 == 0)
+                for (int i = 0; i < MGAmmountVal; i++)
                 {
-                    pos2 = pos2 - 5;
-                    pos1 = pos1 - 5;
+                    string patternMG = $@"
+                class Unit{counter}
+                {{
+                    side = {side};
+                    vehicle = ""{FacNameClass}_f_mg"";
+				    rank = ""PRIVATE"";
+                    position[] = {{ {pos1}, {pos2}, 0 }};
+                }};
+                ";
+                    if (counter % 2 == 0)
+                    {
+                        pos2 = pos2 - 5;
+                        pos1 = pos1 - 5;
+                    }
+                    counter++;
+                    units = units + patternMG;
+                    pos1 = pos1 * -1;
                 }
-                counter++;
-                units = units + patternMG;
-                pos1 = pos1 * -1;
             }
-            for (int i = 0; i < ATAmmountVal; i++)
+            if (riflemanAmmountVal != 0)
             {
-                string patternAT = $@"
-                    class Unit{counter}
-                    {{
-                        side = {side};
-                        vehicle = ""{FacNameClass}_f_at"";
-					    rank = ""PRIVATE"";
-                        position[] = {{ {pos1}, {pos2}, 0 }};
-                    }};
-                ";
-                if (counter % 2 == 0)
+                for (int i = 0; i < ATAmmountVal; i++)
                 {
-                    pos2 = pos2 - 5;
-                    pos1 = pos1 - 5;
+                    string patternAT = $@"
+                class Unit{counter}
+                {{
+                    side = {side};
+                    vehicle = ""{FacNameClass}_f_at"";
+				    rank = ""PRIVATE"";
+                    position[] = {{ {pos1}, {pos2}, 0 }};
+                }};
+                ";
+                    if (counter % 2 == 0)
+                    {
+                        pos2 = pos2 - 5;
+                        pos1 = pos1 - 5;
+                    }
+                    counter++;
+                    units = units + patternAT;
+                    pos1 = pos1 * -1;
                 }
-                counter++;
-                units = units + patternAT;
-                pos1 = pos1 * -1;
             }
-            for (int i = 0; i < MarksmanAmmountVal; i++)
+            if (riflemanAmmountVal != 0)
             {
-                string patternMarksman = $@"
-                    class Unit{counter}
-                    {{
-                        side = {side};
-                        vehicle = ""{FacNameClass}_f_mark"";
-					    rank = ""PRIVATE"";
-                        position[] = {{ {pos1}, {pos2}, 0 }};
-                    }};
-                ";
-                if (counter % 2 == 0)
+                for (int i = 0; i < MarksmanAmmountVal; i++)
                 {
-                    pos2 = pos2 - 5;
-                    pos1 = pos1 - 5;
+                    string patternMarksman = $@"
+                class Unit{counter}
+                {{
+                    side = {side};
+                    vehicle = ""{FacNameClass}_f_mark"";
+				    rank = ""PRIVATE"";
+                    position[] = {{ {pos1}, {pos2}, 0 }};
+                }};
+                ";
+                    if (counter % 2 == 0)
+                    {
+                        pos2 = pos2 - 5;
+                        pos1 = pos1 - 5;
+                    }
+                    counter++;
+                    units = units + patternMarksman;
+                    pos1 = pos1 * -1;
                 }
-                counter++;
-                units = units + patternMarksman;
-                pos1 = pos1 * -1;
             }
             return units;
         }
