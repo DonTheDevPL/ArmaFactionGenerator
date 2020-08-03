@@ -27,7 +27,7 @@
         <Label Content="Author" HorizontalAlignment="Left" Margin="43,162,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Side" HorizontalAlignment="Left" Margin="199,54,0,0" VerticalAlignment="Top" Width="120"/>
         <ListBox Name="sideListBox" HorizontalAlignment="Left" Height="131" VerticalAlignment="Top" Width="120" Margin="199,85,0,0"/>
-        <TextBox Name="debug" HorizontalAlignment="Left" Height="509" Margin="658,9,0,0" TextWrapping="Wrap" Text="debug" VerticalAlignment="Top" Width="225"/>
+        <TextBox Name="debug" HorizontalAlignment="Left" Height="109" Margin="658,9,0,0" TextWrapping="Wrap" Text="debug" VerticalAlignment="Top" Width="225"/>
         <Rectangle Fill="#FFF4F4F5" Height="340" Margin="27,254,241,0" Stroke="Black" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
             <Rectangle.RenderTransform>
                 <TransformGroup>
@@ -97,6 +97,10 @@
         <TextBox x:Name="marksman_weap_mag" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="338,495,0,0"/>
         <Button Content="Export Settings" Click="exportSettings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Margin="626,728,0,0"/>
         <Button Content="Import Settings" Click="importSettings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Margin="525,728,0,0"/>
+        <CheckBox Content="" Name="rifleman_on" HorizontalAlignment="Left" Margin="477,69,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox Content="" Name="at_on" HorizontalAlignment="Left" Margin="477,123,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox Content="" Name="mg_on" HorizontalAlignment="Left" Margin="631,69,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox Content="" Name="marksman_on" HorizontalAlignment="Left" Margin="631,123,0,0" VerticalAlignment="Top" IsChecked="True"/>
 
 
     </Grid>

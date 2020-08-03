@@ -116,6 +116,7 @@ class cfgVehicleClasses
                 Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmo + '"' + ",";
             }
             Marksmanmags = Marksmanmags + '"' + marksmanWeaponAmmo + '"';
+            string finallConfig = "";
             string SquadLead = $@"
 class CfgVehicles
 {{
@@ -213,9 +214,19 @@ class CfgVehicles
 	    respawnweapons[] = {{""{marksmanWeapon}"",""Binocular""}};
 	    magazines[] = {{{Marksmanmags},""HandGrenade"",""HandGrenade"",}};
 	    Respawnmagazines[] = {{{Marksmanmags},""HandGrenade"",""HandGrenade"",}};
-    }};
-}};";
-            return SquadLead + Soldier + Mgunner + ATSoldier + Marksman;
+    }};";
+            //return SquadLead + Soldier + Mgunner + ATSoldier + Marksman;
+            finallConfig = finallConfig + SquadLead;
+            bool riflemanOn = (bool)rifleman_on.IsChecked;
+            bool atOn = (bool)at_on.IsChecked;
+            bool mgOn = (bool)rifleman_on.IsChecked;
+            bool marksmanOn = (bool)marksman_on.IsChecked;
+            if (riflemanOn) { finallConfig = finallConfig + Soldier; }
+            if (atOn) { finallConfig = finallConfig + ATSoldier; }
+            if (mgOn) { finallConfig = finallConfig + Mgunner; }
+            if (marksmanOn) { finallConfig = finallConfig + Marksman; }
+            finallConfig = finallConfig + "}};";
+            return finallConfig;
         }
         private string generateGroups(int side,string FacNameClass, string FacName,int riflemanAmmountVal, int MGAmmountVal, int ATAmmountVal, int MarksmanAmmountVal)
         {
